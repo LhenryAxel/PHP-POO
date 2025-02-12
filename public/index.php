@@ -11,13 +11,17 @@ if (session_status() === PHP_SESSION_NONE) {
 $router = new Router();
 $auth = new AuthController();
 $page = $_GET['page'] ?? 'guest';
+
 if ($auth->isAuthenticated()) {
     $user = $auth->getUser();
 
     if ($user['role'] === 'admin') {
-        switch($page){
+        switch ($page) {
             case 'manage-users':
                 require_once __DIR__ . '/../app/Views/listUser.php';
+                break;
+            case 'manage-pages': // ✅ Handle manage pages
+                require_once __DIR__ . '/../app/Views/manage-pages.php';
                 break;
             case 'login':
                 require_once __DIR__ . '/../public/login.php';
@@ -27,13 +31,13 @@ if ($auth->isAuthenticated()) {
                 break;
             case 'home':
                 require_once __DIR__ . '/../app/Views/home.php';
-                exit();
+                break;
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';
                 break;
         }
         exit();
-    }
+    } 
     else if ($user['role'] === 'user') {
         switch ($page) {
             case 'login':
@@ -42,17 +46,21 @@ if ($auth->isAuthenticated()) {
             case 'logout':
                 $auth->logout();
                 break;
+            case 'manage-pages': // ❌ Restrict access to manage pages for users
+                echo "<h3>Access denied! You must be an admin to view this page.</h3>";
+                break;
             default:
                 require_once __DIR__ . '/../app/Views/home.php';
-                exit();
+                break;
         }
         exit();
-    }
-    else{
+    } 
+    else {
         require_once __DIR__ . '/../app/Views/guest.php';
+        exit();
     }
-}
-else{
+} 
+else { // 🔹 Handle unauthenticated users
     switch ($page) {
         case 'login':
             require_once __DIR__ . '/../public/login.php';
@@ -60,9 +68,12 @@ else{
         case 'logout':
             $auth->logout();
             break;
+        case 'manage-pages': // ❌ Block guests from accessing manage pages
+            echo "<h3>Access denied! Please log in as admin.</h3>";
+            break;
         default:
             require_once __DIR__ . '/../app/Views/guest.php';
-            exit();
+            break;
     }
     exit();
 }
