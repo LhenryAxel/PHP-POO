@@ -1,8 +1,11 @@
 <?php
 namespace App\Models;
 
+require_once __DIR__ . '/../../core/Database.php';
+
 use PDO;
 use Core\Database;
+
 
 class User {
     private PDO $db;
