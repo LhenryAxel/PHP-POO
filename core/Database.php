@@ -1,26 +1,37 @@
 <?php
 namespace Core;
 
+require_once __DIR__ . '/../core/Env.php';
+
 use PDO;
 use PDOException;
 
 class Database {
-    private static ?PDO $instance = null;
+    private static PDO|null $instance = null;
 
     public static function getInstance(): PDO {
         if (self::$instance === null) {
-            try {
-                $config = require __DIR__ . '/../config/database.php';
-                self::$instance = new PDO(
-                    "mysql:host={$config['host']};dbname={$config['dbname']};charset={$config['charset']}",
-                    $config['username'],
-                    $config['password'],
-                    [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-                );
-            } catch (PDOException $e) {
-                die("Erreur de connexion : " . $e->getMessage());
-            }
+            self::$instance = self::CreateConnection();
         }
         return self::$instance;
+    }
+
+    private static function CreateConnection(): PDO {
+        try {
+            loadEnv();
+
+            return new PDO(
+                self::GetDSN(),
+                $_ENV["DB_USERNAME"],
+                $_ENV["DB_PASSWORD"],
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+            );
+        } catch (PDOException $e) {
+            exit("Erreur de connexion : " . $e->getMessage());
+        }
+    }
+
+    private static function GetDSN(): string {
+        return "mysql:host=".$_ENV["DB_HOST"].";dbname=".$_ENV["DB_NAME"].";port=".$_ENV["DB_PORT"].";charset=".$_ENV["DB_CHARSET"];
     }
 }
