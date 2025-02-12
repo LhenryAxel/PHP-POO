@@ -25,4 +25,16 @@ class User {
         $stmt = $this->db->prepare("INSERT INTO users (email, password, role) VALUES (?, ?, ?)");
         return $stmt->execute([$email, $hashedPassword, $role]);
     }
+
+    public function getUsers(){
+        $stmt = $this->db->prepare("SELECT * FROM users;");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteUser($id){
+        $stmt = $this->db->prepare("DELETE FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }

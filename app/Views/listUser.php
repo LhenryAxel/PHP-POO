@@ -19,27 +19,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>utilisateur1@example.com</td>
-                <td>Admin</td>
-                <td>2025-01-01</td>
-                <td>
-                    <button>Modifier</button>
-                    <button>Supprimer</button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>utilisateur2@example.com</td>
-                <td>Utilisateur</td>
-                <td>2025-02-01</td>
-                <td>
-                    <button>Modifier</button>
-                    <button>Supprimer</button>
-                </td>
-            </tr>
-            <!-- Ajoutez d'autres utilisateurs ici -->
+            <?php foreach($users as $user): ?>
+                <tr>
+                    <td><?= $user['id'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                    <td><?= $user['role'] ?></td>
+                    <td><?= $user['created_at'] ?></td>
+                    <td>
+                        <form method="POST" action="index.php?page=delete-user">
+                            <input type="hidden" name="delete_id" id="delete_id" value="<?= $user['id'] ?>"/>
+                            <button type="submit" id='delete_btn' name="delete_btn">Supprimer</button>
+                        </form> 
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </body>

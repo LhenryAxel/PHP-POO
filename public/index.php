@@ -3,6 +3,7 @@ require_once __DIR__ . '/../core/autoload.php';
 
 use Core\Router;
 use App\Controllers\AuthController;
+use App\Controllers\AdminController;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -16,10 +17,15 @@ if ($auth->isAuthenticated()) {
     $user = $auth->getUser();
 
     if ($user['role'] === 'admin') {
-        switch ($page) {
+        $admin = new AdminController();
+        
+        echo $page;
+        switch($page){
             case 'manage-users':
-                require_once __DIR__ . '/../app/Views/listUser.php';
+                $admin->listUser();
                 break;
+            case 'delete-user':
+                $admin->deleteUser();
             case 'login':
                 require_once __DIR__ . '/../public/login.php';
                 break;
