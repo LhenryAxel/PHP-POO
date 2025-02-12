@@ -46,6 +46,11 @@ if ($auth->isAuthenticated()) {
             case 'manage-pages': 
                 require_once __DIR__ . '/../app/Views/manage-pages.php';            
                 break;
+
+            case 'update-pages':
+                require_once __DIR__ . '/../app/Views/update-pages.php';
+                break;
+
             default:
                 require_once __DIR__ . '/../app/Views/home.php';
                 break;

@@ -13,7 +13,6 @@
 
     <ul>
             <li><a href="index.php?page=manage-pages">Gérer les pages</a></li>
-            <li><a href="index.php?page=structure-page">Modifier la structure des pages</a></li>
             <li><a href="index.php?page=home">Accueil</a></li>
     </ul>
 
