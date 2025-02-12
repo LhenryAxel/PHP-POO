@@ -10,30 +10,59 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $router = new Router();
 $auth = new AuthController();
-
+$page = $_GET['page'] ?? 'guest';
 if ($auth->isAuthenticated()) {
     $user = $auth->getUser();
 
     if ($user['role'] === 'admin') {
-        require_once __DIR__ . '/../app/Views/admin.php';
+        switch($page){
+            case 'manage-users':
+                require_once __DIR__ . '/../app/Views/listUser.php';
+                break;
+            case 'login':
+                require_once __DIR__ . '/../public/login.php';
+                break;
+            case 'logout':
+                $auth->logout();
+                break;
+            case 'home':
+                require_once __DIR__ . '/../app/Views/home.php';
+                exit();
+            default:
+                require_once __DIR__ . '/../app/Views/admin.php';
+                break;
+        }
         exit();
     }
-
-    require_once __DIR__ . '/../app/Views/home.php';
+    else if ($user['role'] === 'user') {
+        switch ($page) {
+            case 'login':
+                require_once __DIR__ . '/../public/login.php';
+                break;
+            case 'logout':
+                $auth->logout();
+                break;
+            default:
+                require_once __DIR__ . '/../app/Views/home.php';
+                exit();
+        }
+        exit();
+    }
+    else{
+        require_once __DIR__ . '/../app/Views/guest.php';
+    }
+}
+else{
+    switch ($page) {
+        case 'login':
+            require_once __DIR__ . '/../public/login.php';
+            break;
+        case 'logout':
+            $auth->logout();
+            break;
+        default:
+            require_once __DIR__ . '/../app/Views/guest.php';
+            exit();
+    }
     exit();
 }
-
-$page = $_GET['page'] ?? 'guest';
-
-switch ($page) {
-    case 'login':
-        require_once __DIR__ . '/../public/login.php';
-        break;
-    case 'logout':
-        $auth->logout();
-        break;
-    default:
-        require_once __DIR__ . '/../app/Views/guest.php';
-        break;
-}
-exit();

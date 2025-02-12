@@ -13,6 +13,8 @@
         <ul>
             <li><a href="index.php?page=manage-users">Gérer les utilisateurs</a></li>
             <li><a href="index.php?page=manage-pages">Gérer les pages</a></li>
+            <li><a href="index.php?page=structure-page">Modifier la structure des pages</a></li>
+            <li><a href="index.php?page=home">Accueil</a></li>
         </ul>
     <?php else: ?>
         <p>Accès refusé. <a href="index.php?page=login">Connexion</a></p>
