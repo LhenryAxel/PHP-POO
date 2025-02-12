@@ -12,6 +12,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $router = new Router();
 $auth = new AuthController();
 $page = $_GET['page'] ?? 'guest';
+
 if ($auth->isAuthenticated()) {
     $user = $auth->getUser();
 
@@ -33,13 +34,13 @@ if ($auth->isAuthenticated()) {
                 break;
             case 'home':
                 require_once __DIR__ . '/../app/Views/home.php';
-                exit();
+                break;
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';
                 break;
         }
         exit();
-    }
+    } 
     else if ($user['role'] === 'user') {
         switch ($page) {
             case 'login':
@@ -48,17 +49,26 @@ if ($auth->isAuthenticated()) {
             case 'logout':
                 $auth->logout();
                 break;
+            case 'manage-pages': 
+                require_once __DIR__ . '/../app/Views/manage-pages.php';            
+                break;
+
+            case 'update-pages':
+                require_once __DIR__ . '/../app/Views/update-pages.php';
+                break;
+
             default:
                 require_once __DIR__ . '/../app/Views/home.php';
-                exit();
+                break;
         }
         exit();
-    }
-    else{
+    } 
+    else {
         require_once __DIR__ . '/../app/Views/guest.php';
+        exit();
     }
-}
-else{
+} 
+else { // 🔹 Handle unauthenticated users
     switch ($page) {
         case 'login':
             require_once __DIR__ . '/../public/login.php';
@@ -66,9 +76,10 @@ else{
         case 'logout':
             $auth->logout();
             break;
+      
         default:
             require_once __DIR__ . '/../app/Views/guest.php';
-            exit();
+            break;
     }
     exit();
 }
