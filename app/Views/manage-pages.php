@@ -8,10 +8,7 @@ use App\Models\Page;
 $auth = new AuthController();
 $pageModel = new Page();
 
-if (!$auth->isAdmin()) {
-    header("Location: index.php?page=home");
-    exit();
-}
+
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['title']) && isset($_POST['content'])) {
@@ -70,7 +67,7 @@ $pages = $pageModel->getAllPages();
                 <a href="index.php?page=view&slug=<?= htmlspecialchars($page['slug']) ?>">
                     <?= htmlspecialchars($page['title']) ?>
                 </a>
-                <a href="index.php?page=delete-page&id=<?= $page['id'] ?>" onclick="return confirm('Delete this page?');">Delete</a>
+                
             </li>
         <?php endforeach; ?>
     </ul>

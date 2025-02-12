@@ -20,9 +20,6 @@ if ($auth->isAuthenticated()) {
             case 'manage-users':
                 require_once __DIR__ . '/../app/Views/listUser.php';
                 break;
-            case 'manage-pages': // ✅ Handle manage pages
-                require_once __DIR__ . '/../app/Views/manage-pages.php';
-                break;
             case 'login':
                 require_once __DIR__ . '/../public/login.php';
                 break;
@@ -46,8 +43,8 @@ if ($auth->isAuthenticated()) {
             case 'logout':
                 $auth->logout();
                 break;
-            case 'manage-pages': // ❌ Restrict access to manage pages for users
-                echo "<h3>Access denied! You must be an admin to view this page.</h3>";
+            case 'manage-pages': 
+                require_once __DIR__ . '/../app/Views/manage-pages.php';            
                 break;
             default:
                 require_once __DIR__ . '/../app/Views/home.php';
@@ -68,9 +65,7 @@ else { // 🔹 Handle unauthenticated users
         case 'logout':
             $auth->logout();
             break;
-        case 'manage-pages': // ❌ Block guests from accessing manage pages
-            echo "<h3>Access denied! Please log in as admin.</h3>";
-            break;
+      
         default:
             require_once __DIR__ . '/../app/Views/guest.php';
             break;
