@@ -49,6 +49,11 @@ if ($auth->isAuthenticated()) {
                 $pageData = $pageController->showPage($slug);
                 $structure = $pageController->getGlobalStructure();
                 require_once __DIR__ . '/../app/Views/view-page.php';
+                break;      
+            case 'update-pages':
+                $pageController = new PageController();
+                $pageController->editPage();
+                break;        
                 break;
             case 'logout':
                 $auth->logout();
@@ -67,6 +72,10 @@ if ($auth->isAuthenticated()) {
                 $errorMessage = $pageController->handleCreatePage();
                 $pages = $pageController->listPages();
                 require_once __DIR__ . '/../app/Views/manage-pages.php';
+                break;
+            case 'update-pages':
+                $pageController = new PageController();
+                $pageController->editPage();
                 break;
             case 'view':
                 $slug = $_GET['slug'] ?? '';
