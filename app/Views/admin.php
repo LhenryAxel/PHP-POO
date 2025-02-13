@@ -11,8 +11,8 @@
         <p>Bienvenue Admin, <?= htmlspecialchars($_SESSION['user']['email']); ?> | 
         <a href="logout.php">Déconnexion</a>
         <ul>
-            <li><a href="index.php?page=manage-users">Gérer les utilisateurs</a></li>
-            <li><a href="index.php?page=manage-pages">Gérer les pages</a></li>
+            <li><a href="index.php?page=list-users">Gérer les utilisateurs</a></li>
+            <li><a href="index.php?page=list-pages">Gérer les pages</a></li>
             <li><a href="index.php?page=structure-page">Modifier la structure des pages</a></li>
             <li><a href="index.php?page=home">Accueil</a></li>
         </ul>

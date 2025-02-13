@@ -6,7 +6,7 @@ use App\Controllers\AuthController;
 $auth = new AuthController();
 
 if ($auth->isAuthenticated()) {
-    $auth->redirectUser();
+    //$auth->redirectUser();
     exit();
 }
 

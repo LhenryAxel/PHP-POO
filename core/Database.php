@@ -6,8 +6,8 @@ require_once __DIR__ . '/../core/Env.php';
 use PDO;
 use PDOException;
 
-class Database {
-    private static PDO|null $instance = null;
+class Database { 
+    private static ?PDO $instance = null;
 
     public static function getInstance(): PDO {
         if (self::$instance === null) {

@@ -7,7 +7,8 @@
 </head>
 <body>
     <h1>Liste des utilisateurs</h1>
-
+    <a href="index.php">Retour</a>
+    <br/>
     <table border="1">
         <thead>
             <tr>

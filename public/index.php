@@ -18,14 +18,17 @@ if ($auth->isAuthenticated()) {
 
     if ($user['role'] === 'admin') {
         $admin = new AdminController();
-        
-        echo $page;
         switch($page){
-            case 'manage-users':
+            case 'list-users':
                 $admin->listUser();
+                break;
+            case 'list-pages':
+                $admin->listPage();
                 break;
             case 'delete-user':
                 $admin->deleteUser();
+            case 'delete-page':
+                $admin->deletePage();
             case 'login':
                 require_once __DIR__ . '/../public/login.php';
                 break;
