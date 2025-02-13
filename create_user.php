@@ -25,7 +25,7 @@ try {
     $stmt = $db->prepare("INSERT INTO users (email, password, role) VALUES (?, ?, ?)");
     $stmt->execute([$email, $hashedPassword, $role]);
 
-    echo "✅ Utilisateur ajouté avec succès : $email ($role)\n";
+    echo "Utilisateur ajouté avec succès : $email ($role)\n";
 } catch (Exception $e) {
-    die("❌ Erreur : " . $e->getMessage() . "\n");
+    die("Erreur : " . $e->getMessage() . "\n");
 }
