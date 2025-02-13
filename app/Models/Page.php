@@ -72,15 +72,6 @@ class Page {
     }
 
 
-    public function updatePage($title, $slug, $content, $userId) {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE pages SET title = :title, slug = :slug, content = :content WHERE created_by = :userId");
-        return $stmt->execute([
-            'title' => $title,
-            'slug' => $slug,
-            'content' => $content,
-            'userId' => $userId
-        ]);
-    }
+
 
 }
