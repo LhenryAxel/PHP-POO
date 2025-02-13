@@ -59,6 +59,9 @@ if ($auth->isAuthenticated()) {
                 $auth->logout();
                 header("Location: index.php");
                 exit();
+            case 'home':
+                require_once __DIR__ . '/../app/Views/home.php';
+                break;
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';
                 break;
