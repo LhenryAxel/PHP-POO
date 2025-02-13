@@ -20,6 +20,8 @@ class Migration {
             title VARCHAR(255) NOT NULL,
             slug VARCHAR(255) UNIQUE NOT NULL,
             content TEXT NOT NULL,
+            header TEXT DEFAULT NULL,
+            footer TEXT DEFAULT NULL,
             created_by INT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
