@@ -70,4 +70,17 @@ class Page {
         $stmt = $this->db->prepare("UPDATE structure SET header = ?, footer = ? WHERE id = 1");
         return $stmt->execute([$header, $footer]);
     }
+
+
+    public function updatePage($title, $slug, $content, $userId) {
+        $db = Database::getInstance();
+        $stmt = $db->prepare("UPDATE pages SET title = :title, slug = :slug, content = :content WHERE created_by = :userId");
+        return $stmt->execute([
+            'title' => $title,
+            'slug' => $slug,
+            'content' => $content,
+            'userId' => $userId
+        ]);
+    }
+
 }
