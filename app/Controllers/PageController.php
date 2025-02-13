@@ -9,10 +9,6 @@ class PageController {
     public function __construct() {
         $this->pageModel = new Page();
     }
-
-    public function getGlobalStructure() {
-        return $this->pageModel->getGlobalStructure();
-    }
     
     public function updateGlobalStructure($header, $footer) {
         return $this->pageModel->updateGlobalStructure($header, $footer);
@@ -79,9 +75,6 @@ class PageController {
         return $this->pageModel->getGlobalStructure();
     }
     
-    public function updateGlobalStructure($header, $footer) {
-        return $this->pageModel->updateGlobalStructure($header, $footer);
-    }
     public function handleCreatePage() {
         if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['title']) && isset($_POST['content'])) {
             $title = $_POST['title'];
