@@ -43,18 +43,14 @@ if ($auth->isAuthenticated()) {
                 require_once __DIR__ . '/../app/Views/admin-structure.php';
                 break;
             case 'view':
-                if (isset($_GET['slug'])) {
-                    $controller = new PageController();
-                    $pageData = $controller->showPage($_GET['slug']);
-                    if ($pageData) {
-                        require __DIR__ . '/../app/Views/view-page.php';
-                    } else {
-                        echo "Page not found.";
-                    }
-                } else {
-                    echo "No page specified.";
-                }
-                break;
+                $pageController = new PageController();
+                $slug = $_GET['slug'] ?? '';
+                
+                $pageData = $pageController->showPage($slug);
+                $structure = $pageController->getGlobalStructure();
+                
+                require_once __DIR__ . '/../app/Views/view-page.php';
+                break;                
                                 
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';
@@ -77,19 +73,17 @@ if ($auth->isAuthenticated()) {
             case 'update-pages':
                 require_once __DIR__ . '/../app/Views/update-pages.php';
                 break;
+        
             case 'view':
-                if (isset($_GET['slug'])) {
-                    $controller = new PageController();
-                    $pageData = $controller->showPage($_GET['slug']);
-                    if ($pageData) {
-                        require __DIR__ . '/../app/Views/view-page.php';
-                    } else {
-                        echo "Page not found.";
-                    }
-            } else {
-                    echo "No page specified.";
-                }
-                    break;
+                $pageController = new PageController();
+                $slug = $_GET['slug'] ?? '';
+            
+                $pageData = $pageController->showPage($slug);
+                $structure = $pageController->getGlobalStructure();
+                
+                require_once __DIR__ . '/../app/Views/view-page.php';
+                break;
+                 
             default:
                 require_once __DIR__ . '/../app/Views/home.php';
                 break;
