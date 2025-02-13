@@ -2,8 +2,9 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Pages</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gérer les Pages</title>
+
     <script src="https://cdn.tiny.cloud/1/no4el2dls3ms4xzvu5gtl4ehoedvog1w20cpsblibmyif6gh/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -15,32 +16,85 @@
             branding: false
         });
     </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .admin-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .admin-btn:hover {
+            background-color: #1e7e34;
+        }
+    </style>
 </head>
 <body>
-    <h1>Manage Pages</h1>
 
-    <?php if ($errorMessage): ?>
-        <p style="color: red;"><?= $errorMessage ?></p>
+    <h1>Gérer les Pages</h1>
+
+    <?php if (!empty($errorMessage)): ?>
+        <p style="color: red;"><?= htmlspecialchars($errorMessage) ?></p>
     <?php endif; ?>
 
-    <h2>Create New Page</h2>
+    <h2>Créer une Nouvelle Page</h2>
+    
     <form method="POST">
-        <input type="text" name="title" placeholder="Page Title" required>
-        <input type="text" name="slug" placeholder="Page Slug (optional)" pattern="[a-z0-9-]+" title="Only lowercase letters, numbers, and dashes are allowed.">
+        <input type="text" name="title" placeholder="Titre de la page" required>
+        <input type="text" name="slug" placeholder="Slug de la page (optionnel)" pattern="[a-z0-9-]+" title="Seuls les lettres minuscules, chiffres et tirets sont autorisés.">
         <textarea id="content" name="content"></textarea>
-        <button type="submit">Create Page</button>
+        <button type="submit">Créer la Page</button>
     </form>
 
-    <h2>Existing Pages</h2>
-    <ul>
-        <?php foreach ($pages as $page): ?>
-            <li>
-                <a href="index.php?page=view&slug=<?= htmlspecialchars($page['slug']) ?>">
-                    <?= htmlspecialchars($page['title']) ?>
-                </a>
-                <a href="index.php?page=update-pages&slug=<?= $page['slug'] ?>" onclick="return confirm('Update this page?');">Modifier</a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+    <a href="index.php?page=admin" class="admin-btn">Retour à l'admin</a>
+
 </body>
 </html>
