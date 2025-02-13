@@ -50,6 +50,19 @@ class Migration {
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    public static function insertDefaultStructure() {
+        $db = Database::getInstance();
+        $stmt = $db->query("SELECT COUNT(*) FROM structure");
+        $count = $stmt->fetchColumn();
+
+        if ($count == 0) {
+            $db->exec("INSERT INTO structure (header, footer) VALUES 
+                ('<header><h1>Default Header</h1></header>', 
+                '<footer><p>Default Footer</p></footer>')");
+            echo "Default structure inserted.\n";
+        }
+    }
+
     public static function migrate() {
         self::setupMigrationTable();
         $db = Database::getInstance();
