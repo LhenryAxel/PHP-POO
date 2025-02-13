@@ -57,12 +57,16 @@ class Database extends PDO {
 		}
 	}
 	
-	public function FetchList(string $query, ListQueryParam $QueryParams): array {
+	public function GetList(string $query, ListQueryParam $QueryParams): array {
 		if (stripos($query, "select") != 0) {
 			throw new PDOException("'$query' is not selection query");
 		}
 		
-		$Statement = $this->HandleQuery($query, $QueryParams);
+		try {
+			$Statement = $this->HandleQuery($query, $QueryParams);
+		} catch (PDOException $e) {
+			throw $e;
+		}
 		
 		$data = $Statement->fetchAll(PDO::FETCH_ASSOC);
 		
@@ -73,13 +77,17 @@ class Database extends PDO {
 		return $data;
 	}
 
-	public function FetchOne(string $query, ListQueryParam $QueryParams): array {
+	public function GetOne(string $query, ListQueryParam $QueryParams): array {
 		if (stripos($query, "select") != 0) {
 			throw new PDOException("'$query' is not selection query");
 		}
 
-		$Statement = $this->HandleQuery($query, $QueryParams);
-
+		try {
+			$Statement = $this->HandleQuery($query, $QueryParams);
+		} catch (PDOException $e) {
+			throw $e;
+		}
+		
 		$data = $Statement->fetch(PDO::FETCH_ASSOC);
 
 		if ($data === false) {
@@ -90,22 +98,30 @@ class Database extends PDO {
 	}
 
 	public function InsertList(string $query, ListQueryParam $QueryParams): bool {
-		if (stripos($query, "insert") != 0) {
+		if (stripos($query, "insert") != 0 && stripos($query, "values") != false) {
 			throw new PDOException("'$query' is not insertion query");
 		}
 
-		$Statement = $this->HandleQuery($query, $QueryParams);
-
+		try {
+			$Statement = $this->HandleQuery($query, $QueryParams);
+		} catch (PDOException $e) {
+			throw $e;
+		}
+		
 		return $Statement->rowCount() > 0;
 	}
 
 	public function InsertOne(string $query, ListQueryParam $QueryParams): int {
-		if (stripos($query, "insert") != 0) {
+		if (stripos($query, "insert") != 0 && stripos($query, "values") != false) {
 			throw new PDOException("'$query' is not insertion query");
 		}
 
-		$this->HandleQuery($query, $QueryParams);
-
+		try {
+			$this->HandleQuery($query, $QueryParams);
+		} catch (PDOException $e) {
+			throw $e;
+		}
+		
 		return $this->lastInsertId();
 	}
 
@@ -114,8 +130,12 @@ class Database extends PDO {
 			throw new PDOException("'$query' is not update query");
 		}
 
-		$this->HandleQuery($query, $QueryParams);
-
+		try {
+			$this->HandleQuery($query, $QueryParams);
+		} catch (PDOException $e) {
+			throw $e;
+		}
+		
 		return $this->lastInsertId();
 	}
 

@@ -7,7 +7,9 @@ use App\Models\Objects\Page;
 
 class ListPage extends ListDatabaseObject
 {
-	use AppendList;
+	use AppendList {
+		Append as AppendPage;
+	}
 
 	public function __construct(Page ...$Pages) {
 		$this->values = $Pages;

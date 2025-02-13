@@ -7,7 +7,9 @@ use App\Models\Objects\User;
 
 class ListUser extends ListDatabaseObject
 {
-	use AppendList;
+	use AppendList {
+		Append as AppendUser;
+	}
 
 	public function __construct(User ...$Users) {
 		$this->values = $Users;

@@ -17,11 +17,11 @@ class AuthController {
     public function login($email, $password): bool {
         $user = $this->userModel->getUserByEmail($email);
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user != null && password_verify($password, $user->GetPassword())) {
             $_SESSION['user'] = [
-                'id' => $user['id'],
-                'email' => $user['email'],
-                'role' => $user['role']
+                'id' => $user->GetId(),
+                'email' => $user->GetEmail(),
+                'role' => $user->GetRole()
             ];
 
             $this->redirectUser();

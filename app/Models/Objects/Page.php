@@ -1,8 +1,7 @@
 <?php
 namespace App\Models\Objects;
 
-use DatabaseObject;
-use ListPage;
+use App\Models\Objects\DatabaseObject;
 use DateTime;
 
 class Page extends DatabaseObject {

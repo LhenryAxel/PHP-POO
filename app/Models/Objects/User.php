@@ -1,8 +1,7 @@
 <?php
 namespace App\Models\Objects;
 
-use DatabaseObject;
-use ListPage;
+use App\Models\Objects\DatabaseObject;
 use DateTime;
 
 class User extends DatabaseObject {
@@ -61,8 +60,8 @@ class User extends DatabaseObject {
 		$this->role = $role;
 	}
 
-	public function SetCreatedAt(DateTime|null $created_at): void {
-		$this->CreatedAt = $created_at;
+	public function SetCreatedAt(DateTime|null $CreatedAt): void {
+		$this->CreatedAt = $CreatedAt;
 	}
 
 	public function SetCreatedAtFromString(string|null $created_at): void {
@@ -98,7 +97,7 @@ class User extends DatabaseObject {
 		$instance->email ??= $data["email"];
 		$instance->password ??= $data["password"];
 		$instance->role ??= $data["role"];
-		$instance->SetCreatedAt($data["created_at"]);
+		$instance->SetCreatedAtFromString($data["created_at"]);
 		
 		return $instance;
 	}

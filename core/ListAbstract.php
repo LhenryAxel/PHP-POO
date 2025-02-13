@@ -34,37 +34,6 @@ abstract class ListAbstract implements Iterator, Countable
 	}
 
 	final public function valid(): bool {
-
-class QueryParam
-{
-	private string $bind;
-	private string $value;
-	private int $type;
-
-	#region Getters
-
-	#endregion
-
-	#region Setters
-	public function SetBind(string $bind): void {
-		if (!str_starts_with($bind, ":")) {
-			$bind = ":$bind";
-		}
-
-		$this->bind = $bind;
-	}
-
-	public function SetValue(string $value): void {
-		$this->value = $value;
-	}
-
-	public function SetType(int $type): void {
-		$this->type = $type;
-	}
-
-	
-	#endregion
-}
 		return isset($this->values[$this->currentIndex]);
 	}
 
