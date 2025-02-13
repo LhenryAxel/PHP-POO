@@ -82,7 +82,11 @@ class Page {
         require_once __DIR__ . '/../Views/view-page.php';
     }
 
-
+    public function getPageBySlug($slug) {
+        $stmt = $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
+        $stmt->execute(['slug' => $slug]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 
 }

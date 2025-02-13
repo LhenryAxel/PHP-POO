@@ -10,10 +10,6 @@ class PageController {
         $this->pageModel = new Page();
     }
 
-    public function showPage($slug) {
-        return $this->pageModel->getPageBySlug($slug);
-    }
-
     public function getGlobalStructure() {
         return $this->pageModel->getGlobalStructure();
     }
@@ -21,6 +17,10 @@ class PageController {
     public function updateGlobalStructure($header, $footer) {
         return $this->pageModel->updateGlobalStructure($header, $footer);
     } 
+
+    public function showPage($slug) {
+        return $this->pageModel->getPageBySlug($slug);
+    }  
 
     public function handleViewPage() { 
         $slug = $_GET['slug'] ?? '';
@@ -77,5 +77,5 @@ class PageController {
             }
         }
         return null;
-    }
+    }  
 }
