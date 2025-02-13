@@ -79,6 +79,8 @@ class Migration {
         } catch (PDOException $e) {
             die("Erreur lors des migrations : " . $e->getMessage());
         }
+
+        self::insertDefaultStructure();
     }
 
     public static function reset() {
