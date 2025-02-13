@@ -27,6 +27,7 @@ class Migration {
 
         "003_create_structure_table" => "CREATE TABLE IF NOT EXISTS structure (
             id INT AUTO_INCREMENT PRIMARY KEY,
+            head TEXT NOT NULL,
             header TEXT NOT NULL,
             footer TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -54,10 +55,11 @@ class Migration {
         $db = Database::getInstance();
         $stmt = $db->query("SELECT COUNT(*) FROM structure");
         $count = $stmt->fetchColumn();
-
+    
         if ($count == 0) {
-            $db->exec("INSERT INTO structure (header, footer) VALUES 
-                ('<header><h1>Default Header</h1></header>', 
+            $db->exec("INSERT INTO structure (head, header, footer) VALUES 
+                ('<title>Default Title</title><meta charset=\"UTF-8\">', 
+                '<header><h1>Default Header</h1></header>', 
                 '<footer><p>Default Footer</p></footer>')");
             echo "Default structure inserted.\n";
         }
@@ -86,7 +88,7 @@ class Migration {
     public static function reset() {
         $db = Database::getInstance();
         try {
-            $db->exec("DROP TABLE IF EXISTS pages, users, " . self::$migrationTable . ";");
+            $db->exec("DROP TABLE IF EXISTS pages, users, structure, " . self::$migrationTable . ";");
             echo "Toutes les migrations ont été annulées.\n";
         } catch (PDOException $e) {
             die("Erreur lors de la suppression des tables : " . $e->getMessage());
