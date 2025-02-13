@@ -2,10 +2,11 @@
 require_once __DIR__ . '/../Models/Page.php';
 
 use App\Models\Page;
+use App\Models\PageModel;
 
-$pageModel = new Page();
+$pageModel = new PageModel();
 $slug = $_GET['slug'] ?? null;
-$page = $pageModel->getPageBySlug($slug);
+// $page = $pageModel->getPageBySlug($slug);
 
 if (!$page) {
     echo "<h1>Page not found</h1>";

@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\User;
+use App\Models\UserModel;
 
 class AuthController {
-    private User $userModel;
+    private UserModel $userModel;
 
     public function __construct() {
-        $this->userModel = new User();
+        $this->userModel = new UserModel();
 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();

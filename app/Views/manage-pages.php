@@ -4,9 +4,10 @@ require_once __DIR__ . '/../Models/Page.php';
 
 use App\Controllers\AuthController;
 use App\Models\Page;
+use App\Models\PageModel;
 
 $auth = new AuthController();
-$pageModel = new Page();
+$pageModel = new PageModel();
 
 
 
