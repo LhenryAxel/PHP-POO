@@ -70,4 +70,10 @@ class Page {
         $stmt = $this->db->prepare("UPDATE structure SET header = ?, footer = ? WHERE id = 1");
         return $stmt->execute([$header, $footer]);
     }
+
+    public function getPageBySlug($slug) {
+        $stmt = $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
+        $stmt->execute(['slug' => $slug]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }    
 }

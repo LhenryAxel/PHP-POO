@@ -15,7 +15,7 @@
                 <th>ID</th>
                 <th>Titre</th>
                 <th>Url</th>
-                <th>Contenue</th>
+                <th>Contenu</th>
                 <th>Utilisateur</th>
                 <th>Date de création</th>
                 <th>Action</th>
@@ -24,15 +24,22 @@
         <tbody>
             <?php foreach($pages as $page): ?>
                 <tr>
-                    <td><?= $page['id'] ?></td>
-                    <td><?= $page['title'] ?></td>
-                    <td><?= $page['slug'] ?></td>
-                    <td><?= $page['content'] ?></td>
-                    <td><?= $page['email'] ?></td>
-                    <td><?= $page['created_at'] ?></td>
+                    <td><?= htmlspecialchars($page['id']) ?></td>
+                    <td><?= htmlspecialchars($page['title']) ?></td>
+                    
+                    <td>
+                        <a href="index.php?page=view&slug=<?= urlencode($page['slug']) ?>">
+                            <?= htmlspecialchars($page['slug']) ?>
+                        </a>
+                    </td>
+                    
+                    <td><?= htmlspecialchars(strip_tags($page['content'])) ?></td>
+                    <td><?= htmlspecialchars($page['email']) ?></td>
+                    <td><?= htmlspecialchars($page['created_at']) ?></td>
+                    
                     <td>
                         <form method="POST" action="index.php?page=delete-page">
-                            <input type="hidden" name="delete_id" id="delete_id" value="<?= $page['id'] ?>"/>
+                            <input type="hidden" name="delete_id" id="delete_id" value="<?= htmlspecialchars($page['id']) ?>"/>
                             <button type="submit" id='delete_btn' name="delete_btn">Supprimer</button>
                         </form> 
                     </td>
