@@ -1,22 +1,3 @@
-<?php
-require_once __DIR__ . '/../Controllers/PageController.php';
-
-use App\Controllers\PageController;
-
-$pageController = new PageController();
-
-$structure = $pageController->getGlobalStructure();
-
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $header = $_POST['header'];
-    $footer = $_POST['footer'];
-
-    $pageController->updateGlobalStructure($header, $footer);
-    header("Location: index.php?page=admin-structure");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -37,12 +18,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
     <h1>Modifier la structure globale du CMS</h1>
 
-    <form method="POST">
+    <form method="POST" action="index.php?page=admin-structure">
+        <input type="hidden" name="update_structure" value="1">
+
+        <label>Head</label>
+        <textarea class="wysiwyg" name="head"><?= htmlspecialchars($structure['head'] ?? '') ?></textarea>
+
         <label>Header</label>
-        <textarea class="wysiwyg" name="header"><?= htmlspecialchars($structure['header']) ?></textarea>
+        <textarea class="wysiwyg" name="header"><?= htmlspecialchars($structure['header'] ?? '') ?></textarea>
 
         <label>Footer</label>
-        <textarea class="wysiwyg" name="footer"><?= htmlspecialchars($structure['footer']) ?></textarea>
+        <textarea class="wysiwyg" name="footer"><?= htmlspecialchars($structure['footer'] ?? '') ?></textarea>
 
         <button type="submit">Enregistrer</button>
     </form>

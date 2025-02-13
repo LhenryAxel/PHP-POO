@@ -1,24 +1,26 @@
+<?php
+require_once __DIR__ . '/../../core/autoload.php';
+
+
+
+use App\Controllers\PageController;
+
+$pageController = new PageController();
+$structure = $pageController->getGlobalStructure();
+$pageData = $pageController->showPage($_GET['slug'] ?? '');
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($pageData['title']) ?></title>
+    <?= $structure['head'] ?? '' ?>
 </head>
 <body>
-
-    <header>
-        <?= isset($structure['header']) ? $structure['header'] : '<h2>Default Header</h2>' ?>
-    </header>
+    <?= $structure['header'] ?? '' ?>
 
     <h1><?= htmlspecialchars($pageData['title']) ?></h1>
-    <div><?= $pageData['content'] ?></div>
+    <p><?= $pageData['content'] ?></p>
 
-    <footer>
-        <?= isset($structure['footer']) ? $structure['footer'] : '<p>Default Footer</p>' ?>
-    </footer>
-
-    <a href="index.php">Retour</a>
-
+    <?= $structure['footer'] ?? '' ?>
 </body>
 </html>

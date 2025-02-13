@@ -59,17 +59,14 @@ class Page {
     }
 
     public function getGlobalStructure() {
-        $stmt = $this->db->query("SELECT header, footer FROM structure LIMIT 1");
-        $structure = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-        //If no structure then default one added
-        return $structure ?: ['header' => '<header>Default CMS Header</header>', 'footer' => '<footer>Default CMS Footer</footer>'];
+        $stmt = $this->db->query("SELECT head, header, footer FROM structure LIMIT 1");
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: ['head' => '', 'header' => '', 'footer' => ''];
     }
     
-    public function updateGlobalStructure($header, $footer) {
-        $stmt = $this->db->prepare("UPDATE structure SET header = ?, footer = ? WHERE id = 1");
-        return $stmt->execute([$header, $footer]);
-    }
+    public function updateGlobalStructure($head, $header, $footer) {
+        return $this->pageModel->updateGlobalStructure($head, $header, $footer);
+    }    
+
 
     public function getPageBySlug($slug) {
         $stmt = $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
