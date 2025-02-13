@@ -38,6 +38,9 @@ if ($auth->isAuthenticated()) {
             case 'home':
                 require_once __DIR__ . '/../app/Views/home.php';
                 break;
+            case 'admin-structure':
+                require_once __DIR__ . '/../app/Views/admin-structure.php';
+                break;                
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';
                 break;
@@ -71,7 +74,7 @@ if ($auth->isAuthenticated()) {
         exit();
     }
 } 
-else { // 🔹 Handle unauthenticated users
+else { 
     switch ($page) {
         case 'login':
             require_once __DIR__ . '/../public/login.php';

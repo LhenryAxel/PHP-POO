@@ -57,4 +57,17 @@ class Page {
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getGlobalStructure() {
+        $stmt = $this->db->query("SELECT header, footer FROM structure LIMIT 1");
+        $structure = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        //If no structure then default one added
+        return $structure ?: ['header' => '<header>Default CMS Header</header>', 'footer' => '<footer>Default CMS Footer</footer>'];
+    }
+    
+    public function updateGlobalStructure($header, $footer) {
+        $stmt = $this->db->prepare("UPDATE structure SET header = ?, footer = ? WHERE id = 1");
+        return $stmt->execute([$header, $footer]);
+    }
 }

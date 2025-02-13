@@ -13,7 +13,7 @@
         <ul>
             <li><a href="index.php?page=list-users">Gérer les utilisateurs</a></li>
             <li><a href="index.php?page=list-pages">Gérer les pages</a></li>
-            <li><a href="index.php?page=structure-page">Modifier la structure des pages</a></li>
+            <li><a href="index.php?page=admin-structure">Modifier la structure des pages</a></li>
             <li><a href="index.php?page=home">Accueil</a></li>
         </ul>
     <?php else: ?>

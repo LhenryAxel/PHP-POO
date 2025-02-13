@@ -17,4 +17,12 @@ class PageController {
     public function createPage($title, $slug, $content, $userId) {
         return $this->pageModel->createPage($title, $slug, $content, $userId);
     }
+
+    public function getGlobalStructure() {
+        return $this->pageModel->getGlobalStructure();
+    }
+    
+    public function updateGlobalStructure($header, $footer) {
+        return $this->pageModel->updateGlobalStructure($header, $footer);
+    }    
 }

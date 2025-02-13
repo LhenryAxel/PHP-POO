@@ -20,12 +20,17 @@ class Migration {
             title VARCHAR(255) NOT NULL,
             slug VARCHAR(255) UNIQUE NOT NULL,
             content TEXT NOT NULL,
-            header TEXT DEFAULT NULL,
-            footer TEXT DEFAULT NULL,
             created_by INT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
-        ) ENGINE=InnoDB;"
+        ) ENGINE=InnoDB;",
+
+        "003_create_structure_table" => "CREATE TABLE IF NOT EXISTS structure (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            header TEXT NOT NULL,
+            footer TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB;",
     ];
 
     private static string $migrationTable = "migrations";
