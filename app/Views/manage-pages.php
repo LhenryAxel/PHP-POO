@@ -67,7 +67,7 @@ $pages = $pageModel->getAllPages();
                 <a href="index.php?page=view&slug=<?= htmlspecialchars($page['slug']) ?>">
                     <?= htmlspecialchars($page['title']) ?>
                 </a>
-                <a href="index.php?page=update-pages&id=<?= $page['id'] ?>" onclick="return confirm('update this page?');">Modifier</a>
+                <a href="index.php?page=update-pages&slug=<?= $page['slug'] ?>" onclick="return confirm('update this page?');">Modifier</a>
             </li>
         <?php endforeach; ?>
     </ul>

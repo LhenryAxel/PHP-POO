@@ -32,14 +32,14 @@ class Page {
         ]);
     }  
     
-    public function updatePage($title, $slug, $content, $userId) {
+    public function updatePage($title, $slug, $content, $id) {
         $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE pages SET title = :title, slug = :slug, content = :content WHERE created_by = :userId");
+        $stmt = $db->prepare("UPDATE pages SET title = :title, slug = :slug, content = :content WHERE id = :id");
         return $stmt->execute([
             'title' => $title,
             'slug' => $slug,
             'content' => $content,
-            'userId' => $userId
+            'id' => $id
         ]);
     }
 

@@ -50,7 +50,11 @@ if ($auth->isAuthenticated()) {
                 $structure = $pageController->getGlobalStructure();
                 
                 require_once __DIR__ . '/../app/Views/view-page.php';
-                break;                
+                break;      
+            case 'update-pages':
+                $pageController = new PageController();
+                $pageController->editPage();
+                break;              
                                 
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';
@@ -71,8 +75,9 @@ if ($auth->isAuthenticated()) {
                 break;
 
             case 'update-pages':
-                require_once __DIR__ . '/../app/Views/update-pages.php';
-                break;
+                $pageController = new PageController();
+                $pageController->editPage();
+                break;   
         
             case 'view':
                 $pageController = new PageController();
