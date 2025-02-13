@@ -1,26 +1,17 @@
-<?php
-require_once __DIR__ . '/../../core/autoload.php';
-
-
-
-use App\Controllers\PageController;
-
-$pageController = new PageController();
-$structure = $pageController->getGlobalStructure();
-$pageData = $pageController->showPage($_GET['slug'] ?? '');
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <?= $structure['head'] ?? '' ?>
+    <meta charset="UTF-8">
+    <title><?= htmlspecialchars($pageData['title']) ?></title>
 </head>
 <body>
-    <?= $structure['header'] ?? '' ?>
-
+    <?= $structure['header'] ?? '<header><h1>Default Header</h1></header>'; ?>
+    
     <h1><?= htmlspecialchars($pageData['title']) ?></h1>
     <p><?= $pageData['content'] ?></p>
 
-    <?= $structure['footer'] ?? '' ?>
+    <a href="index.php">Retour</a>
+
+    <?= $structure['footer'] ?? '<footer><p>Default Footer</p></footer>'; ?>
 </body>
 </html>

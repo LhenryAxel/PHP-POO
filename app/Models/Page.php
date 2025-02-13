@@ -64,9 +64,23 @@ class Page {
     }
     
     public function updateGlobalStructure($head, $header, $footer) {
-        return $this->pageModel->updateGlobalStructure($head, $header, $footer);
+        $stmt = $this->db->prepare("UPDATE structure SET head = ?, header = ?, footer = ? LIMIT 1");
+        return $stmt->execute([$head, $header, $footer]);
     }    
 
+    public function handleViewPage() {
+        $slug = $_GET['slug'] ?? '';
+
+        if (!$slug) {
+            echo "No page specified.";
+            return;
+        }
+
+        $pageData = $this->pageModel->getPageBySlug($slug);
+        $structure = $this->pageModel->getGlobalStructure();
+
+        require_once __DIR__ . '/../Views/view-page.php';
+    }
 
     public function getPageBySlug($slug) {
         $stmt = $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
