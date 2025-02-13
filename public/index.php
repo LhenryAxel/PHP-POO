@@ -4,6 +4,7 @@ require_once __DIR__ . '/../core/autoload.php';
 use Core\Router;
 use App\Controllers\AuthController;
 use App\Controllers\AdminController;
+use App\Controllers\PageController;
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -40,7 +41,21 @@ if ($auth->isAuthenticated()) {
                 break;
             case 'admin-structure':
                 require_once __DIR__ . '/../app/Views/admin-structure.php';
-                break;                
+                break;
+            case 'view':
+                if (isset($_GET['slug'])) {
+                    $controller = new PageController();
+                    $pageData = $controller->showPage($_GET['slug']);
+                    if ($pageData) {
+                        require __DIR__ . '/../app/Views/view-page.php';
+                    } else {
+                        echo "Page not found.";
+                    }
+                } else {
+                    echo "No page specified.";
+                }
+                break;
+                                
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';
                 break;
@@ -62,7 +77,19 @@ if ($auth->isAuthenticated()) {
             case 'update-pages':
                 require_once __DIR__ . '/../app/Views/update-pages.php';
                 break;
-
+            case 'view':
+                if (isset($_GET['slug'])) {
+                    $controller = new PageController();
+                    $pageData = $controller->showPage($_GET['slug']);
+                    if ($pageData) {
+                        require __DIR__ . '/../app/Views/view-page.php';
+                    } else {
+                        echo "Page not found.";
+                    }
+            } else {
+                    echo "No page specified.";
+                }
+                    break;
             default:
                 require_once __DIR__ . '/../app/Views/home.php';
                 break;

@@ -24,5 +24,5 @@ class PageController {
     
     public function updateGlobalStructure($header, $footer) {
         return $this->pageModel->updateGlobalStructure($header, $footer);
-    }    
+    } 
 }
