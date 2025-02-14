@@ -53,7 +53,6 @@ if ($auth->isAuthenticated()) {
             case 'update-pages':
                 $pageController = new PageController();
                 $pageController->editPage();
-                break;        
                 break;
             case 'logout':
                 $auth->logout();

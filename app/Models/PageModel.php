@@ -1,24 +1,32 @@
 <?php
 namespace App\Models;
 
+use App\Models\Lists\ListPage;
+use App\Models\Objects\Page;
 use Core\Database;
 use PDO;
+use Traits\Singleton;
 
-class Page {
-    private $db;
-
-    public function __construct() {
-        $this->db = Database::getInstance();
-    }
+class PageModel extends Model {
+    use Singleton;
 
     public function getAllPages() {
         $stmt = $this->db->query("SELECT * FROM pages");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getPagesWithUsersMail(){
-        $stmt = $this->db->query("SELECT p.*, u.email FROM pages as p INNER JOIN users AS u ON p.created_by = u.id;");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getPagesWithUsersMail(): ListPage|false {
+        $Pages = ListPage::NewList(
+            $this->db->getList(
+                "SELECT p.* FROM pages as p INNER JOIN users AS u ON p.created_by = u.id;"
+            ),
+            associateReference: true
+        );
+
+        return $Pages;
+
+        // $stmt = $this->db->query("SELECT p.*, u.email FROM pages as p INNER JOIN users AS u ON p.created_by = u.id;");
+        // return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function createPage($title, $slug, $content, $userId) {
@@ -76,8 +84,8 @@ class Page {
             return;
         }
 
-        $pageData = $this->pageModel->getPageBySlug($slug);
-        $structure = $this->pageModel->getGlobalStructure();
+        $pageData = $this->getPageBySlug($slug);
+        $structure = $this->getGlobalStructure();
 
         require_once __DIR__ . '/../Views/view-page.php';
     }

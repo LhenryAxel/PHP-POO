@@ -1,9 +1,9 @@
 <?php
 require_once __DIR__ . '/core/Database.php';
-require_once __DIR__ . '/app/Models/User.php';
+// require_once __DIR__ . '/app/Models/UserModel.php';
 
 use Core\Database;
-use App\Models\User;
+// use App\Models\UserModel;
 
 echo "Email: ";
 $email = trim(fgets(STDIN));

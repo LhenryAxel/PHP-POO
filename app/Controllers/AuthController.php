@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\User;
+use App\Models\UserModel;
 
 class AuthController {
-    private User $userModel;
+    private UserModel $userModel;
 
     public function __construct() {
-        $this->userModel = new User();
+        $this->userModel = UserModel::GetInstance();
 
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -17,11 +17,14 @@ class AuthController {
     public function login($email, $password): bool {
         $user = $this->userModel->getUserByEmail($email);
 
-        if ($user && password_verify($password, $user['password'])) {
+        var_dump($user);
+        var_dump($user->GetPassword());
+
+        if ($user != null && password_verify($password, $user->GetPassword())) {
             $_SESSION['user'] = [
-                'id' => $user['id'],
-                'email' => $user['email'],
-                'role' => $user['role']
+                'id' => $user->GetId(),
+                'email' => $user->GetEmail(),
+                'role' => $user->GetRole()
             ];
 
             $this->redirectUser();
