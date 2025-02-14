@@ -127,6 +127,8 @@
             </td>
             
             <td><?= htmlspecialchars(strip_tags(substr($page->GetContent(), 0, 300))) ?></td>
+            <td><?= htmlspecialchars($page->GetCreatedByUser()->GetEmail()) ?></td>
+            <td><?= $page->GetCreatedAt()->format('Y-m-d') ?></td>
             
             <td>
                 <form method="POST" action="index.php?page=delete-page">

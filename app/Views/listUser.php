@@ -109,7 +109,7 @@
                     <td>
                         <form method="POST" action="index.php?page=delete-user">
                             <input type="hidden" name="delete_id" value="<?= htmlspecialchars($user->GetId()) ?>"/>
-                            <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">Supprimer</button>
+                            <button type="submit" name="delete_btn" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">Supprimer</button>
                         </form> 
                     </td>
                 </tr>

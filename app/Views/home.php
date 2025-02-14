@@ -144,11 +144,9 @@
         </ul>
 
 
-        <a href="index.php?page=admin" class="admin-btn">Retour au Panneau d'Admin</a>
+        <?php if (isset($_SESSION['user']) && $_SESSION['user']['role'] == "admin") { echo "<a href=\"index.php?page=admin\" class=\"admin-btn\">Retour au Panneau d'Admin</a>"; } ?>
 
         <a href="index.php?page=logout" class="logout">Déconnexion</a>
-
-        <p>Vous êtes connecté en tant qu'utilisateur standard.</p>
     </div>
 
 </body>
