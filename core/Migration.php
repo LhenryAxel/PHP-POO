@@ -168,8 +168,8 @@ class Migration {
         "<header class=\"header\">
             <div class=\"title\">Wiki Universel</div>
             <div class=\"buttons\">
-                <a href=\"index.php/page=update-pages\"><button class=\"btn edit\">Modifier</button></a>
-                <a href=\"index.php/page=home\"><button class=\"btn login\">Se Connecter</button></a>
+                <a href=\"index.php?page=update-pages\"><button class=\"btn edit\">Modifier</button></a>
+                <a href=\"index.php?page=home\"><button class=\"btn login\">Se Connecter</button></a>
             </div>
         </header>";
 
