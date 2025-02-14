@@ -89,8 +89,6 @@
 
     <h1>Liste des utilisateurs</h1>
 
-    <a href="index.php" class="back-btn">Retour</a>
-
     <table>
         <thead>
             <tr>

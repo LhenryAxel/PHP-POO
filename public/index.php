@@ -36,7 +36,6 @@ if ($auth->isAuthenticated()) {
                 break;
             case 'manage-pages':
                 $errorMessage = $pageController->handleCreatePage();
-                $pages = $pageController->listPages();
                 require_once __DIR__ . '/../app/Views/manage-pages.php';
                 break;
             case 'admin-structure':
@@ -52,15 +51,14 @@ if ($auth->isAuthenticated()) {
                 break;      
             case 'update-pages':
                 $pageController = new PageController();
-                $pageController->editPage();
-                break;        
+                $pageController->editPage();     
                 break;
             case 'logout':
                 $auth->logout();
                 header("Location: index.php");
                 exit();
             case 'home':
-                require_once __DIR__ . '/../app/Views/home.php';
+                $pageController->viewListPage();
                 break;
             default:
                 require_once __DIR__ . '/../app/Views/admin.php';

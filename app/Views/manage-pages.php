@@ -94,7 +94,7 @@
         <button type="submit">Créer la Page</button>
     </form>
 
-    <a href="index.php?page=admin" class="admin-btn">Retour à l'admin</a>
+    <a href="index.php?page=home" class="admin-btn">Retour</a>
 
 </body>
 </html>

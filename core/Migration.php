@@ -85,12 +85,106 @@ class Migration {
 
         $stmt = $db->query("SELECT COUNT(*) FROM structure");
         $count = $stmt->fetchColumn();
+        
+        $head = 
+        "<style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            .main {
+                background: white;
+                margin: auto;
+                width: 80%;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+                text-align: left;
+            }
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color:rgb(98, 160, 223);
+                padding: 15px 20px;
+                border-bottom: 2px solid #ddd;
+            }
+            .title {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+            }-
+            .buttons {
+                display: flex;
+                gap: 10px;
+            }
+            .btn {
+                padding: 8px 12px;
+                border: none;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+            .btn.edit {
+                background-color: #007bff;
+                color: white;
+            }
+            .btn.login {
+                background-color: #28a745;
+                color: white;
+            }
+            .btn:hover {
+                opacity: 0.8;
+            }
+            .footer {
+                background-color: #b0c4de;
+                text-align: center;
+                padding: 15px;
+                margin-top: auto;
+            }
+            .footer .creators {
+                margin: 10px 0;
+            }
+            .footer .btn {
+                background-color: #333;
+                color: white;
+                padding: 8px 12px;
+                text-decoration: none;
+                display: inline-block;
+                border-radius: 5px;
+                margin-top: 10px;
+            }
+        </style>";
+
+        $header = 
+        "<header class=\"header\">
+            <div class=\"title\">Wiki Universel</div>
+            <div class=\"buttons\">
+                <a href=\"index.php/page=update-pages\"><button class=\"btn edit\">Modifier</button></a>
+                <a href=\"index.php/page=home\"><button class=\"btn login\">Se Connecter</button></a>
+            </div>
+        </header>";
+
+        $footer =
+        "<footer class=\"footer\">
+            <p>&copy; 2025 Wiki Universel. Tous droits réservés.</p>
+            <p class=\"creators\">Créateurs : Amin, Alex, Quentin, Thomas</p>
+            <a href=\"index.php\" class=\"btn\">Retour</a>
+        </footer>";
 
         if ($count == 0) {
             $db->exec("INSERT INTO structure (head, header, footer) VALUES 
-                ('<title>Default Title</title><meta charset=\"UTF-8\">', 
-                '<header><h1>Default Header</h1></header>', 
-                '<footer><p>Default Footer</p></footer>')");
+                ('" . $head . "', 
+                '" . $header . "', 
+                '" . $footer . "')");
             echo "Default structure inserted.\n";
         }
     }

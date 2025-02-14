@@ -15,6 +15,7 @@ class PageController {
     } 
 
     public function showPage($slug) {
+        $_SESSION['slug'] = $slug;
         return $this->pageModel->getPageBySlug($slug);
     }  
 
@@ -62,8 +63,8 @@ class PageController {
         if (isset($_POST['submit_edit_page'])) {
             $result = $this->pageModel->updatePage($_POST['title'], $_POST['slug'], $_POST['content'], $_POST['id']);
         }
-        if (isset($_GET['slug']) || isset($_POST['slug'])) {
-            $page = $this->pageModel->getPageBySlug($_GET['slug']);
+        if (isset($_SESSION['slug'])) {
+            $page = $this->pageModel->getPageBySlug($_SESSION['slug']);
             require_once __DIR__ . '/../Views/update-pages.php';
             exit();
         } else {
@@ -95,4 +96,10 @@ class PageController {
         }
         return null;
     }  
+
+    public function viewListPage() {
+        $pages = $this->listPages();
+        require_once __DIR__ . '/../Views/home.php';
+        exit();
+    }
 }
