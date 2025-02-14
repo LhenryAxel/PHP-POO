@@ -126,7 +126,7 @@
                         </a>
                     </td>
                     
-                    <td><?= htmlspecialchars(strip_tags($page->GetContent())) ?></td>
+                    <td><?= htmlspecialchars(strip_tags(substr($page->GetContent(), 0, 200))) ?></td>
                     <td><?= htmlspecialchars($page->GetCreatedByUser()->GetEmail()) ?></td>
                     <td><?= htmlspecialchars($page->GetCreatedAtAsString()) ?></td>
                     
