@@ -32,6 +32,19 @@ class Migration {
             footer TEXT NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         ) ENGINE=InnoDB;",
+
+        "004_create_history_table" => "CREATE TABLE IF NOT EXISTS history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            page_id INT NOT NULL,
+            title VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL,
+            content TEXT NOT NULL,
+            user_id INT,
+            action ENUM('created', 'updated') NOT NULL,
+            action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (page_id) REFERENCES pages(id) ON DELETE CASCADE,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
+        ) ENGINE=InnoDB;"
     ];
 
     private static string $migrationTable = "migrations";
