@@ -8,7 +8,7 @@ class PageController {
 	private PageModel $pageModel;
 
 	public function __construct() {
-		$this->pageModel = new PageModel();
+		$this->pageModel = PageModel::GetInstance();
 	}
 
 	public function showPage($slug) {
