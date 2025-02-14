@@ -38,9 +38,8 @@
         }
 
         table {
-            width: 100%;
-            max-width: 900px;
-            margin: auto;
+            width: 80%;
+            margin: 20px auto;
             border-collapse: collapse;
             background: white;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
@@ -81,17 +80,27 @@
             background-color: #a71d2a;
         }
 
+        .admin-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .admin-btn:hover {
+            background-color: #1e7e34;
+        }
+
     </style>
 
 </head>
 <body>
 
     <h1>Liste des pages</h1>
-
-    <div class="button-container">
-        <a href="index.php?page=admin" class="button">Retour à l'admin</a>
-        <a href="index.php" class="button">Retour</a>
-    </div>
 
     <table>
         <thead>
@@ -132,5 +141,6 @@
         </tbody>
     </table>
 
+    <a href="index.php?page=admin" class="admin-btn">Retour au Panneau d'Admin</a>
 </body>
 </html>
