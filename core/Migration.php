@@ -51,8 +51,38 @@ class Migration {
         return $stmt->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    public static function insertDefaultStructure() {
+    public static function insertDefaultData() {
         $db = Database::getInstance();
+
+        $stmt = $db->query("SELECT COUNT(*) FROM users WHERE email = 'admin@example.com'");
+        $adminExists = $stmt->fetchColumn();
+
+        $stmt = $db->query("SELECT COUNT(*) FROM users WHERE email = 'user@example.com'");
+        $userExists = $stmt->fetchColumn();
+
+        if ($adminExists == 0) {
+            $hashedPassword = password_hash("admin123", PASSWORD_BCRYPT);
+            $db->exec("INSERT INTO users (email, password, role) VALUES 
+                ('admin@example.com', '$hashedPassword', 'admin')");
+            echo "Admin user inserted.\n";
+        }
+
+        if ($userExists == 0) {
+            $hashedPassword = password_hash("user123", PASSWORD_BCRYPT);
+            $db->exec("INSERT INTO users (email, password, role) VALUES 
+                ('user@example.com', '$hashedPassword', 'user')");
+            echo "Normal user inserted.\n";
+        }
+
+        $stmt = $db->query("SELECT COUNT(*) FROM pages");
+        $count = $stmt->fetchColumn();
+
+        if ($count == 0) {
+            $db->exec("INSERT INTO pages (title, slug, content, created_by) VALUES 
+                ('Bienvenue', 'bienvenue', '<p>Bienvenue sur notre CMS !</p>', 1)");
+            echo "Default page inserted.\n";
+        }
+
         $stmt = $db->query("SELECT COUNT(*) FROM structure");
         $count = $stmt->fetchColumn();
         
@@ -150,7 +180,6 @@ class Migration {
             <a href=\"index.php\" class=\"btn\">Retour</a>
         </footer>";
 
-
         if ($count == 0) {
             $db->exec("INSERT INTO structure (head, header, footer) VALUES 
                 ('" . $head . "', 
@@ -177,7 +206,7 @@ class Migration {
             die("Erreur lors des migrations : " . $e->getMessage());
         }
 
-        self::insertDefaultStructure();
+        self::insertDefaultData();
     }
 
     public static function reset() {

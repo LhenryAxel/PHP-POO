@@ -68,7 +68,7 @@ class PageController {
             require_once __DIR__ . '/../Views/update-pages.php';
             exit();
         } else {
-            echo "marche po";
+            echo "Modification failed. Please try again.";
         }
     }
 
@@ -82,6 +82,10 @@ class PageController {
             $slug = !empty($_POST['slug']) ? $_POST['slug'] : strtolower(str_replace(' ', '-', $title)); // Auto-generate slug if empty
             $content = $_POST['content'];
             $userId = $_SESSION['user']['id'];
+
+            if ($this->pageModel->getPageBySlug($slug)) {
+                return "Erreur : La page existe déjà.";
+            }
 
             if ($this->createPage($title, $slug, $content, $userId)) {
                 header("Location: index.php?page=manage-pages");
