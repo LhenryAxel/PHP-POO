@@ -4,6 +4,8 @@ namespace Traits;
 
 use Traits\Unclonable;
 
+require_once __DIR__ . '/../traits/unclonable.php';
+
 /**
  * A trait making sure a class can only have one single instance
  */
