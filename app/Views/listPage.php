@@ -126,7 +126,7 @@
                 </a>
             </td>
             
-            <td><?= htmlspecialchars(strip_tags($page['content'])) ?></td>
+            <td><?= htmlspecialchars(strip_tags(substr($page['content'], 0, 300))) ?></td>
             <td><?= htmlspecialchars($page['history']['creator_email'] ?? 'Unknown') ?></td>
             <td><?= htmlspecialchars($page['history']['created_at'] ?? 'Unknown') ?></td>
             <td><?= htmlspecialchars($page['history']['last_modifier_email'] ?? 'None') ?></td>
