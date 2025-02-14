@@ -89,7 +89,7 @@ if ($auth->isAuthenticated()) {
                 header("Location: index.php");
                 exit();
             default:
-                require_once __DIR__ . '/../app/Views/home.php';
+                $pageController->viewListPage();
                 break;
         }
         exit();
