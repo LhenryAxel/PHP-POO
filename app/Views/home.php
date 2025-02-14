@@ -83,7 +83,20 @@
         .logout:hover {
             background-color: #a71d2a;
         }
+        .admin-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
 
+        .admin-btn:hover {
+            background-color: #1e7e34;
+        }
     </style>
 
 </head>
@@ -104,6 +117,9 @@
             </li>
             <?php endforeach; ?>
         </ul>
+
+
+        <a href="index.php?page=admin" class="admin-btn">Retour au Panneau d'Admin</a>
 
         <a href="index.php?page=logout" class="logout">Déconnexion</a>
 
