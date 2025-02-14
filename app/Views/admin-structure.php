@@ -69,6 +69,21 @@
         .back-link:hover {
             text-decoration: underline;
         }
+
+        .admin-btn {
+            display: inline-block;
+            text-decoration: none;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        .admin-btn:hover {
+            background-color: #1e7e34;
+        }
     </style>
 
     <script src="https://cdn.tiny.cloud/1/no4el2dls3ms4xzvu5gtl4ehoedvog1w20cpsblibmyif6gh/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
@@ -103,7 +118,7 @@
             <button type="submit">Enregistrer</button>
         </form>
 
-        <a href="index.php?page=admin" class="back-link">Retour à l'admin</a>
+        <a href="index.php?page=admin" class="admin-btn">Retour au Panneau d'Admin</a>
     </div>
 
 </body>

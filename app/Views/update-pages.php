@@ -90,6 +90,8 @@
             font-weight: bold;
         }
 
+        
+
     </style>
 </head>
 <body>
@@ -115,7 +117,7 @@
             <p class="error">Erreur lors de la modification</p>
         <?php endif; ?>
 
-        <a href="index.php?page=admin" class="back-btn">Retour</a>
+        <a href="index.php?page=home" class="back-btn">Retour</a>
     </div>
 
 </body>
