@@ -79,19 +79,19 @@
 </head>
 <body>
 
-    <h1>Gérer les Pages</h1>
+    <h1>Gérer les pages</h1>
 
     <?php if (!empty($errorMessage)): ?>
         <p style="color: red;"><?= htmlspecialchars($errorMessage) ?></p>
     <?php endif; ?>
 
-    <h2>Créer une Nouvelle Page</h2>
+    <h2>Créer une nouvelle page</h2>
     
     <form method="POST">
         <input type="text" name="title" placeholder="Titre de la page" required>
         <input type="text" name="slug" placeholder="Slug de la page (optionnel)" pattern="[a-z0-9-]+" title="Seuls les lettres minuscules, chiffres et tirets sont autorisés.">
         <textarea id="content" name="content"></textarea>
-        <button type="submit">Créer la Page</button>
+        <button type="submit">Créer la page</button>
     </form>
 
     <a href="index.php?page=home" class="admin-btn">Retour</a>

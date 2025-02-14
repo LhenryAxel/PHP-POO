@@ -40,13 +40,13 @@ class PageModel extends Model {
 
     public function createPage($title, $slug, $content, $userId) {
         try {
-            return $this->db->getList(
-                "INSERT INTO pages (title, slug, content, created_by) VALUES (:title, :slug, :content, :userId)",
-                new ListQueryParam(
+            return $this->db->InsertOne(
+                query: "INSERT INTO pages (title, slug, content, created_by) VALUES (:title, :slug, :content, :userId)",
+                QueryParams: new ListQueryParam(
                     new QueryParam('title', $title, PDO::PARAM_STR),
-                    new QueryParam('slug', $slug,PDO::PARAM_STR),
-                    new QueryParam('content', $content,PDO::PARAM_STR),
-                    new QueryParam('userId', $userId, PDO::PARAM_INT),
+                    new QueryParam(':slug', $slug, PDO::PARAM_STR),
+                    new QueryParam(':content', $content, PDO::PARAM_STR),
+                    new QueryParam(':userId', $userId, PDO::PARAM_INT),
                 )
             );
         } catch (Exception $e) {
