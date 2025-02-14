@@ -21,8 +21,8 @@ class AdminController {
 
     public function deleteUser(){
         if(isset($_POST["delete_btn"])){
-            $result = $this->pageModel->changePageOwner($_POST["delete_id"], $_SESSION['user']['id']);
-            $result = $this->userModel->deleteUser($_POST["delete_id"]);
+            $result = $this->pageModel->ChangeOwner($_POST["delete_id"], $_SESSION['user']['id']);
+            $result = $this->userModel->Delete($_POST["delete_id"]);
             $this->listUser();
         }
         else{

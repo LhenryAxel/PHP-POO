@@ -6,7 +6,7 @@ use App\Models\UserModel;
 use DateTime;
 use Exception;
 
-class Page extends DatabaseObject {
+class PageHistory extends DatabaseObject {
 	private int|null $id;
 	private string|null $title;
 	private string|null $slug;

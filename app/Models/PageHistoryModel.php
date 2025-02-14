@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 require_once __DIR__ . '/../../core/Database.php';
@@ -16,9 +17,9 @@ use App\Models\Lists\ListUser;
 use Traits\Singleton;
 
 /**
- * Class handling manipulations of Pages
+ * Class handling manipulations of PageHistory
  */
-class UserModel extends Model {
+class HistoryModel extends Model {
 	use Singleton;
 
 	public function GetById(int $id): User|null|false {

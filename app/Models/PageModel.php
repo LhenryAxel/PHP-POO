@@ -11,104 +11,114 @@ use PDO;
 use Traits\Singleton;
 
 class PageModel extends Model {
-    use Singleton;
+	use Singleton;
 
-    public function getAllPages(): ListPage|false {
-        try {
-            return ListPage::NewList(
-                data: $this->db->getList(
-                    "SELECT * FROM pages"
-                ),
-            );
-        } catch (Exception $e) {
-            return false;
-        }
-    }
+	public function getAllPages(): ListPage|false {
+		try {
+			return ListPage::NewList(
+				data: $this->db->getList(
+					"SELECT * FROM pages"
+				),
+			);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
-    public function getPagesWithUsersMail(): ListPage|false {
-        try {
-            return ListPage::NewList(
-                data: $this->db->getList(
-                    "SELECT p.* FROM pages as p INNER JOIN users AS u ON p.created_by = u.id"
-                ),
-                associateReference: true
-            );
-        } catch (Exception $e) {
-            return false;
-        }
-    }
+	public function getPagesWithUsersMail(): ListPage|false {
+		try {
+			return ListPage::NewList(
+				data: $this->db->getList(
+					"SELECT p.* FROM pages as p INNER JOIN users AS u ON p.created_by = u.id"
+				),
+				associateReference: true
+			);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
-    public function createPage($title, $slug, $content, $userId) {
-        try {
-            return $this->db->InsertOne(
-                query: "INSERT INTO pages (title, slug, content, created_by) VALUES (:title, :slug, :content, :userId)",
-                QueryParams: new ListQueryParam(
-                    new QueryParam('title', $title, PDO::PARAM_STR),
-                    new QueryParam(':slug', $slug, PDO::PARAM_STR),
-                    new QueryParam(':content', $content, PDO::PARAM_STR),
-                    new QueryParam(':userId', $userId, PDO::PARAM_INT),
-                )
-            );
-        } catch (Exception $e) {
-            return false;
-        }
-    }  
-    
-    public function updatePage($title, $slug, $content, $id) {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE pages SET title = :title, slug = :slug, content = :content WHERE id = :id");
-        return $stmt->execute([
-            'title' => $title,
-            'slug' => $slug,
-            'content' => $content,
-            'id' => $id
-        ]);
-    }
+	public function createPage($title, $slug, $content, $userId): int|false {
+		try {
+			return $this->db->InsertOne(
+				query: "INSERT INTO pages (title, slug, content, created_by) VALUES (:title, :slug, :content, :userId)",
+				QueryParams: new ListQueryParam(
+					new QueryParam('title', $title, PDO::PARAM_STR),
+					new QueryParam(':slug', $slug, PDO::PARAM_STR),
+					new QueryParam(':content', $content, PDO::PARAM_STR),
+					new QueryParam(':userId', $userId, PDO::PARAM_INT),
+				)
+			);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	
+	public function UpdateById(int $id, string $title, string $slug, string $content): bool {
+		try {
+			return $this->db->Update(
+				query: "UPDATE pages SET title = :title, slug = :slug, content = :content WHERE id = :id",
+				QueryParams: new ListQueryParam(
+					new QueryParam('title', $title, PDO::PARAM_STR),
+					new QueryParam(':slug', $slug, PDO::PARAM_STR),
+					new QueryParam(':content', $content, PDO::PARAM_STR),
+					new QueryParam(':id', $id, PDO::PARAM_INT),
+				)
+			);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
-    public function changePageOwner($oldUserId, $newUserId){
-        $db = Database::getInstance();
-        $stmt = $db->prepare("UPDATE pages SET created_by = :newUserId WHERE created_by = :oldUserId");
-        return $stmt->execute([
-            'newUserId' => $newUserId,
-            'oldUserId' => $oldUserId,
-        ]);
-    }
+	public function ChangeOwner($oldUserId, $newUserId): bool {
+		try {
+			return $this->db->Update(
+				query: "UPDATE pages SET created_by = :newUserId WHERE created_by = :oldUserId",
+				QueryParams: new ListQueryParam(
+					new QueryParam('newUserId', $newUserId, PDO::PARAM_STR),
+					new QueryParam(':oldUserId', $oldUserId, PDO::PARAM_STR),
+				)
+			);
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
-    public function deletePage($id){
-        $stmt = $this->db->prepare("DELETE FROM pages WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+	public function deletePage($id){
+		$stmt = $this->db->prepare("DELETE FROM pages WHERE id = ?");
+		$stmt->execute([$id]);
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
 
-    public function getGlobalStructure() {
-        $stmt = $this->db->query("SELECT head, header, footer FROM structure LIMIT 1");
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: ['head' => '', 'header' => '', 'footer' => ''];
-    }
-    
-    public function updateGlobalStructure($head, $header, $footer) {
-        $stmt = $this->db->prepare("UPDATE structure SET head = ?, header = ?, footer = ? LIMIT 1");
-        return $stmt->execute([$head, $header, $footer]);
-    }    
+	public function getGlobalStructure() {
+		$stmt = $this->db->query("SELECT head, header, footer FROM structure LIMIT 1");
+		return $stmt->fetch(PDO::FETCH_ASSOC) ?: ['head' => '', 'header' => '', 'footer' => ''];
+	}
+	
+	public function updateGlobalStructure($head, $header, $footer) {
+		$stmt = $this->db->prepare("UPDATE structure SET head = ?, header = ?, footer = ? LIMIT 1");
+		return $stmt->execute([$head, $header, $footer]);
+	}    
 
-    public function handleViewPage() {
-        $slug = $_GET['slug'] ?? '';
+	public function handleViewPage() {
+		$slug = $_GET['slug'] ?? '';
 
-        if (!$slug) {
-            echo "No page specified.";
-            return;
-        }
+		if (!$slug) {
+			echo "No page specified.";
+			return;
+		}
 
-        $pageData = $this->getPageBySlug($slug);
-        $structure = $this->getGlobalStructure();
+		$pageData = $this->getPageBySlug($slug);
+		$structure = $this->getGlobalStructure();
 
-        require_once __DIR__ . '/../Views/view-page.php';
-    }
+		require_once __DIR__ . '/../Views/view-page.php';
+	}
 
-    public function getPageBySlug($slug) {
-        $stmt = $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
-        $stmt->execute(['slug' => $slug]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+	public function getPageBySlug($slug) {
+		$stmt = $this->db->prepare("SELECT * FROM pages WHERE slug = :slug");
+		$stmt->execute(['slug' => $slug]);
+		return $stmt->fetch(PDO::FETCH_ASSOC);
+	}
 
 
 }

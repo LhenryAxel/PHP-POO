@@ -2,10 +2,6 @@
 namespace App\Models;
 
 use Core\Database;
-use DatabaseObject;
-use PDO;
-use App\Models\Lists\ListDatabaseObject;
-use Traits\Singleton;
 
 abstract class Model
 {

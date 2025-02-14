@@ -2,7 +2,6 @@
 namespace App\Models\Objects;
 
 use App\Models\Lists\ListPage;
-use App\Models\Lists\ListUser;
 use App\Models\Objects\DatabaseObject;
 use DateTime;
 

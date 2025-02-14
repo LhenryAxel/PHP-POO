@@ -56,10 +56,11 @@ class PageController {
 	public function createPage($title, $slug, $content, $userId) {
 		return $this->pageModel->createPage($title, $slug, $content, $userId);
 	}
+
 	public function editPage(){
 		$result = true;
 		if (isset($_POST['submit_edit_page'])) {
-			$result = $this->pageModel->updatePage($_POST['title'], $_POST['slug'], $_POST['content'], $_POST['id']);
+			$result = $this->pageModel->UpdateById($_POST['id'], $_POST['title'], $_POST['slug'], $_POST['content']);
 		}
 		if (isset($_SESSION['slug'])) {
 			$page = $this->pageModel->getPageBySlug($_SESSION['slug']);
@@ -81,12 +82,12 @@ class PageController {
 			$content = $_POST['content'];
 			$userId = $_SESSION['user']['id'];
 
-		if ($this->createPage($title, $slug, $content, $userId)) {
-			header("Location: index.php?page=manage-pages");
-			exit();
-		} else {
-			return "Error saving page.";
-		}
+			if ($this->createPage($title, $slug, $content, $userId)) {
+				header("Location: index.php?page=manage-pages");
+				exit();
+			} else {
+				return "Error saving page.";
+			}
 		}
 		return null;
 	}
