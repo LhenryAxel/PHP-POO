@@ -11,7 +11,7 @@ class UserController {
     }
 
     public function login($email, $password) {
-        $user = $this->userModel->getUserByEmail($email);
+        $user = $this->userModel->GetByEmail($email);
 
         if ($user != null && password_verify($password, $user->GetPassword())) {
             $_SESSION['user'] = [

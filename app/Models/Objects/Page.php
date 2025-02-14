@@ -141,7 +141,11 @@ class Page extends DatabaseObject {
 	}
 
 
-	public static function NewObject(array $data, bool $associateReference = false): self {
+	public static function NewObject(array $data = [], bool $associateReference = false): self|null {
+		if ($data === []) {
+			return null;
+		}
+		
 		$instance = new self;
 		
 		$instance->SetId($data["id"]);
@@ -149,7 +153,7 @@ class Page extends DatabaseObject {
 		$instance->SetSlug($data["slug"]);
 		$instance->SetContent($data["content"]);
 		$instance->SetCreatedBy($data["created_by"], $associateReference);
-		$instance->SetCreatedAtFromString($data["created_at"] ?? null);
+		$instance->SetCreatedAtFromString($data["created_at"]);
 		
 		return $instance;
 	}

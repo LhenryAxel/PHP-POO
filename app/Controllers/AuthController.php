@@ -15,7 +15,7 @@ class AuthController {
     }
 
     public function login($email, $password): bool {
-        $user = $this->userModel->getUserByEmail($email);
+        $user = $this->userModel->getByEmail($email);
 
         var_dump($user);
         var_dump($user->GetPassword());

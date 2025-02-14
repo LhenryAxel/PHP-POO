@@ -10,5 +10,5 @@ abstract class DatabaseObject
 	 * @param array $data the data fetched from the database
 	 * @return self the database object
 	 */
-	abstract public static function NewObject(array $data): self;
+	abstract public static function NewObject(array $data = []): self|null;
 }

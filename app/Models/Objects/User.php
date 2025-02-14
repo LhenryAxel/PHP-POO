@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Objects;
 
+use App\Models\Lists\ListPage;
 use App\Models\Lists\ListUser;
 use App\Models\Objects\DatabaseObject;
 use DateTime;
@@ -11,6 +12,8 @@ class User extends DatabaseObject {
 	private string|null $password;
 	private string|null $role;
 	private DateTime|null $CreatedAt;
+
+	private ListPage|null $Pages;
 
 
 	#region Getters
@@ -40,6 +43,10 @@ class User extends DatabaseObject {
 		}
 
 		return $this->CreatedAt->format("d M Y");
+	}
+
+	public function GetPages(): ListPage|null {
+		return $this->Pages;
 	}
 	#endregion
 
@@ -73,6 +80,10 @@ class User extends DatabaseObject {
 
 		$this->CreatedAt = new DateTime($created_at);
 	}
+
+	public function SetPages(ListPage|null $Pages): void {
+		$this->Pages = $Pages ?? new ListPage;
+	}
 	#endregion
 
 
@@ -91,13 +102,17 @@ class User extends DatabaseObject {
 	}
 
 
-	public static function NewObject(array $data): self {
+	public static function NewObject(array $data = []): self|null {
+		if ($data === []) {
+			return null;
+		}
+
 		$instance = new self;
 		
-		$instance->id ??= $data["id"];
-		$instance->email ??= $data["email"];
-		$instance->password ??= $data["password"];
-		$instance->role ??= $data["role"];
+		$instance->SetId($data["id"]);
+		$instance->SetEmail($data["email"]);
+		$instance->SetPassword($data["password"]);
+		$instance->SetRole($data["role"]);
 		$instance->SetCreatedAtFromString($data["created_at"]);
 		
 		return $instance;

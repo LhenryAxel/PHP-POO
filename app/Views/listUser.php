@@ -102,13 +102,13 @@
         <tbody>
             <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= htmlspecialchars($user['id']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
-                    <td><?= htmlspecialchars($user['role']) ?></td>
-                    <td><?= htmlspecialchars($user['created_at']) ?></td>
+                    <td><?= htmlspecialchars($user->GetId()) ?></td>
+                    <td><?= htmlspecialchars($user->GetEmail()) ?></td>
+                    <td><?= htmlspecialchars($user->GetRole()) ?></td>
+                    <td><?= htmlspecialchars($user->GetCreatedAtAsString()) ?></td>
                     <td>
                         <form method="POST" action="index.php?page=delete-user">
-                            <input type="hidden" name="delete_id" value="<?= htmlspecialchars($user['id']) ?>"/>
+                            <input type="hidden" name="delete_id" value="<?= htmlspecialchars($user->GetId()) ?>"/>
                             <button type="submit" onclick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">Supprimer</button>
                         </form> 
                     </td>

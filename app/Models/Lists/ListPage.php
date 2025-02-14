@@ -35,7 +35,7 @@ final class ListPage extends ListDatabaseObject
 		return parent::current();
 	}
 	
-	public static function NewList(array $data, bool $associateReference): self {
+	public static function NewList(array $data, bool $associateReference = false): self {
 		$result = new ListPage();
 		foreach ($data as $d) {
 			$result->Add(Page::NewObject($d, $associateReference));

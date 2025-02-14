@@ -111,8 +111,8 @@
         <ul>
         <?php foreach($pages as $page): ?>
             <li>
-                <a href="index.php?page=view&slug=<?= urlencode($page['slug']) ?>">
-                            <?= htmlspecialchars($page['title']) ?>
+                <a href="index.php?page=view&slug=<?= urlencode($page->GetSlug()) ?>">
+                            <?= htmlspecialchars($page->GetTitle()) ?>
                 </a>
             </li>
             <?php endforeach; ?>

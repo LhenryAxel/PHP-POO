@@ -4,40 +4,54 @@ namespace App\Models;
 use App\Models\Lists\ListPage;
 use App\Models\Objects\Page;
 use Core\Database;
+use Core\Query\ListQueryParam;
+use Core\Query\QueryParam;
+use Exception;
 use PDO;
 use Traits\Singleton;
 
 class PageModel extends Model {
     use Singleton;
 
-    public function getAllPages() {
-        $stmt = $this->db->query("SELECT * FROM pages");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getAllPages(): ListPage|false {
+        try {
+            return ListPage::NewList(
+                data: $this->db->getList(
+                    "SELECT * FROM pages"
+                ),
+            );
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function getPagesWithUsersMail(): ListPage|false {
-        $Pages = ListPage::NewList(
-            $this->db->getList(
-                "SELECT p.* FROM pages as p INNER JOIN users AS u ON p.created_by = u.id;"
-            ),
-            associateReference: true
-        );
-
-        return $Pages;
-
-        // $stmt = $this->db->query("SELECT p.*, u.email FROM pages as p INNER JOIN users AS u ON p.created_by = u.id;");
-        // return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            return ListPage::NewList(
+                data: $this->db->getList(
+                    "SELECT p.* FROM pages as p INNER JOIN users AS u ON p.created_by = u.id"
+                ),
+                associateReference: true
+            );
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function createPage($title, $slug, $content, $userId) {
-        $db = Database::getInstance();
-        $stmt = $db->prepare("INSERT INTO pages (title, slug, content, created_by) VALUES (:title, :slug, :content, :userId)");
-        return $stmt->execute([
-            'title' => $title,
-            'slug' => $slug,
-            'content' => $content,
-            'userId' => $userId
-        ]);
+        try {
+            return $this->db->getList(
+                "INSERT INTO pages (title, slug, content, created_by) VALUES (:title, :slug, :content, :userId)",
+                new ListQueryParam(
+                    new QueryParam('title', $title, PDO::PARAM_STR),
+                    new QueryParam('slug', $slug,PDO::PARAM_STR),
+                    new QueryParam('content', $content,PDO::PARAM_STR),
+                    new QueryParam('userId', $userId, PDO::PARAM_INT),
+                )
+            );
+        } catch (Exception $e) {
+            return false;
+        }
     }  
     
     public function updatePage($title, $slug, $content, $id) {

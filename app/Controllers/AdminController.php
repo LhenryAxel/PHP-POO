@@ -14,7 +14,7 @@ class AdminController {
     }
 
     public function listUser() {
-        $users = $this->userModel->getUsers();
+        $users = $this->userModel->GetAll();
         require_once __DIR__ . '/../Views/listUser.php';
         exit();
     }

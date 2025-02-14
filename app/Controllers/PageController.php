@@ -12,10 +12,10 @@ class PageController {
 	}
 
 
-    public function showPage($slug) {
-        $_SESSION['slug'] = $slug;
-        return $this->pageModel->getPageBySlug($slug);
-    }  
+	public function showPage($slug) {
+		$_SESSION['slug'] = $slug;
+		return $this->pageModel->getPageBySlug($slug);
+	}  
 
 	public function handleViewPage() { 
 		$slug = $_GET['slug'] ?? '';
@@ -53,22 +53,22 @@ class PageController {
 		return $this->pageModel->getAllPages();
 	}
 
-    public function createPage($title, $slug, $content, $userId) {
-        return $this->pageModel->createPage($title, $slug, $content, $userId);
-    }
-    public function editPage(){
-        $result = true;
-        if (isset($_POST['submit_edit_page'])) {
-            $result = $this->pageModel->updatePage($_POST['title'], $_POST['slug'], $_POST['content'], $_POST['id']);
-        }
-        if (isset($_SESSION['slug'])) {
-            $page = $this->pageModel->getPageBySlug($_SESSION['slug']);
-            require_once __DIR__ . '/../Views/update-pages.php';
-            exit();
-        } else {
-            echo "Modification failed. Please try again.";
-        }
-    }
+	public function createPage($title, $slug, $content, $userId) {
+		return $this->pageModel->createPage($title, $slug, $content, $userId);
+	}
+	public function editPage(){
+		$result = true;
+		if (isset($_POST['submit_edit_page'])) {
+			$result = $this->pageModel->updatePage($_POST['title'], $_POST['slug'], $_POST['content'], $_POST['id']);
+		}
+		if (isset($_SESSION['slug'])) {
+			$page = $this->pageModel->getPageBySlug($_SESSION['slug']);
+			require_once __DIR__ . '/../Views/update-pages.php';
+			exit();
+		} else {
+			echo "Modification failed. Please try again.";
+		}
+	}
 
 	public function getGlobalStructure() {
 		return $this->pageModel->getGlobalStructure();
@@ -81,19 +81,19 @@ class PageController {
 			$content = $_POST['content'];
 			$userId = $_SESSION['user']['id'];
 
-            if ($this->createPage($title, $slug, $content, $userId)) {
-                header("Location: index.php?page=manage-pages");
-                exit();
-            } else {
-                return "Error saving page.";
-            }
-        }
-        return null;
-    }  
+		if ($this->createPage($title, $slug, $content, $userId)) {
+			header("Location: index.php?page=manage-pages");
+			exit();
+		} else {
+			return "Error saving page.";
+		}
+		}
+		return null;
+	}
 
-    public function viewListPage() {
-        $pages = $this->listPages();
-        require_once __DIR__ . '/../Views/home.php';
-        exit();
-    }
+	public function viewListPage() {
+		$pages = $this->listPages();
+		require_once __DIR__ . '/../Views/home.php';
+		exit();
+	}
 }

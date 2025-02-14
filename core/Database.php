@@ -176,7 +176,7 @@ class Database extends PDO {
 	 * @return array
 	 */
 	public function getOne(string $query, ListQueryParam|null $QueryParams = null): array {
-		if (!QueryType::isSelectionQuery($query)) {
+		if (!QueryType::IsSelectionQuery($query)) {
 			throw new QueryException(
 				"Requête invalide, ce n'est pas une requête de selection",
 				QueryType::UNKNOWN,
@@ -205,8 +205,8 @@ class Database extends PDO {
 	 * @throws \Exception
 	 * @return array
 	 */
-	public function getList(string $query, ListQueryParam|null $QueryParams = null): array {
-		if (!QueryType::isSelectionQuery($query)) {
+	public function GetList(string $query, ListQueryParam|null $QueryParams = null): array {
+		if (!QueryType::IsSelectionQuery($query)) {
 			throw new QueryException(
 				"Requête invalide, ce n'est pas une requête de selection",
 				QueryType::GET_LIST,
@@ -235,7 +235,7 @@ class Database extends PDO {
 	 * @throws \Core\Query\QueryException
 	 * @return array
 	 */
-	public function getCollumn(string $query, ListQueryParam|null $QueryParams = null): array {
+	public function GetCollumn(string $query, ListQueryParam|null $QueryParams = null): array {
 		if (!QueryType::isSelectionQuery($query)) {
 			throw new QueryException(
 				"Requête invalide, ce n'est pas une requête de selection",
@@ -355,7 +355,7 @@ class Database extends PDO {
 	 * @throws \Core\Query\QueryException
 	 * @return int
 	 */
-	public function delete(string $query, ListQueryParam|null $QueryParams = null): int {
+	public function Delete(string $query, ListQueryParam|null $QueryParams = null): int {
 		if (!QueryType::isDeletionQuery($query)) {
 			throw new QueryException(
 				"Requête invalide, ce n'est pas une requête de suppression", 
