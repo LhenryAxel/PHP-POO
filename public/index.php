@@ -39,7 +39,7 @@ if ($auth->isAuthenticated()) {
                 require_once __DIR__ . '/../app/Views/manage-pages.php';
                 break;
             case 'admin-structure':
-                $errorMessage = $pageController->handleStructureUpdate();
+                $pageController->handleStructureUpdate();
                 $structure = $pageController->getGlobalStructure();
                 require_once __DIR__ . '/../app/Views/admin-structure.php';
                 break;
