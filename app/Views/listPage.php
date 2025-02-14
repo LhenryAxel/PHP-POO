@@ -117,24 +117,20 @@
         <tbody>
     <?php foreach($pages as $page): ?>
         <tr>
-            <td><?= htmlspecialchars($page['id']) ?></td>
-            <td><?= htmlspecialchars($page['title']) ?></td>
+            <td><?= htmlspecialchars($page->GetId()) ?></td>
+            <td><?= htmlspecialchars($page->GetTitle()) ?></td>
             
             <td>
-                <a href="index.php?page=view&slug=<?= urlencode($page['slug']) ?>">
-                    <?= htmlspecialchars($page['slug']) ?>
+                <a href="index.php?page=view&slug=<?= urlencode($page->GetSlug()) ?>">
+                    <?= htmlspecialchars($page->GetSlug()) ?>
                 </a>
             </td>
             
-            <td><?= htmlspecialchars(strip_tags(substr($page['content'], 0, 300))) ?></td>
-            <td><?= htmlspecialchars($page['history']['creator_email'] ?? 'Unknown') ?></td>
-            <td><?= htmlspecialchars($page['history']['created_at'] ?? 'Unknown') ?></td>
-            <td><?= htmlspecialchars($page['history']['last_modifier_email'] ?? 'None') ?></td>
-            <td><?= htmlspecialchars($page['history']['last_modified_at'] ?? 'Never modified') ?></td>
+            <td><?= htmlspecialchars(strip_tags(substr($page->GetContent(), 0, 300))) ?></td>
             
             <td>
                 <form method="POST" action="index.php?page=delete-page">
-                    <input type="hidden" name="delete_id" value="<?= htmlspecialchars($page['id']) ?>"/>
+                    <input type="hidden" name="delete_id" value="<?= htmlspecialchars($page->GetId()) ?>"/>
                     <button type="submit" name="delete_btn">Supprimer</button>
                 </form> 
             </td>
