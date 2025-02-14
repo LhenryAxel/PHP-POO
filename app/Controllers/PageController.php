@@ -82,6 +82,10 @@ class PageController {
             $content = $_POST['content'];
             $userId = $_SESSION['user']['id'];
 
+            if ($this->pageModel->getPageBySlug($slug)) {
+                return "Erreur : La page existe déjà.";
+            }
+
             if ($this->createPage($title, $slug, $content, $userId)) {
                 header("Location: index.php?page=manage-pages");
                 exit();
