@@ -97,6 +97,31 @@
         .admin-btn:hover {
             background-color: #1e7e34;
         }
+
+        .list-pages ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-pages li {
+            margin: 10px 0;
+        }
+
+        .list-pages a {
+            display: block;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .list-pages a:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 
 </head>
@@ -107,17 +132,18 @@
         <p>Bienvenue, <strong><?= htmlspecialchars($_SESSION['user']['email']); ?></strong></p>
         <a class="create_btn" href="index.php?page=manage-pages">Créer les pages</a>
 
-        <h2> Liste des pages </h2>
-        <ul>
-        <?php foreach($pages as $page): ?>
-            <li>
-                <a href="index.php?page=view&slug=<?= urlencode($page['slug']) ?>">
+        <h2>Liste des pages</h2>
+        <div class="list-pages">
+            <ul>
+                <?php foreach($pages as $page): ?>
+                    <li>
+                        <a href="index.php?page=view&slug=<?= urlencode($page['slug']) ?>">
                             <?= htmlspecialchars($page['title']) ?>
-                </a>
-            </li>
-            <?php endforeach; ?>
-        </ul>
-
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
 
         <a href="index.php?page=admin" class="admin-btn">Retour au Panneau d'Admin</a>
 
