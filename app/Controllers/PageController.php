@@ -67,7 +67,7 @@ class PageController {
             require_once __DIR__ . '/../Views/update-pages.php';
             exit();
         } else {
-            echo "marche po";
+            echo "Modification failed. Please try again.";
         }
     }
 
