@@ -97,6 +97,31 @@
         .admin-btn:hover {
             background-color: #1e7e34;
         }
+
+        .list-pages ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .list-pages li {
+            margin: 10px 0;
+        }
+
+        .list-pages a {
+            display: block;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .list-pages a:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 
 </head>
