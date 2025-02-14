@@ -64,20 +64,24 @@ class PageController {
 			require_once __DIR__ . '/../Views/update-pages.php';
 			exit();
 		} else {
-			echo "marche po";
+			echo "Modification failed. Please try again.";
 		}
 	}
 
 	public function getGlobalStructure() {
 		return $this->pageModel->getGlobalStructure();
 	}
-	
+
 	public function handleCreatePage() {
 		if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['title']) && isset($_POST['content'])) {
 			$title = $_POST['title'];
 			$slug = !empty($_POST['slug']) ? $_POST['slug'] : strtolower(str_replace(' ', '-', $title)); // Auto-generate slug if empty
 			$content = $_POST['content'];
 			$userId = $_SESSION['user']['id'];
+
+			if ($this->pageModel->getPageBySlug($slug)) {
+				return "Erreur : La page existe déjà.";
+			}
 
 			if ($this->createPage($title, $slug, $content, $userId)) {
 				header("Location: index.php?page=manage-pages");
