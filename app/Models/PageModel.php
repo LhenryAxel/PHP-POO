@@ -120,5 +120,24 @@ class PageModel extends Model {
 		return $stmt->fetch(PDO::FETCH_ASSOC);
 	}
 
+    public function getPageHistory($pageId) {
+        $stmt = $this->db->prepare("
+            SELECT 
+                u_creator.email AS creator_email,
+                h_creator.action_date AS created_at,
+                u_modifier.email AS last_modifier_email,
+                h_modifier.action_date AS last_modified_at
+            FROM pages p
+            LEFT JOIN history h_creator ON h_creator.page_id = p.id AND h_creator.action = 'created'
+            LEFT JOIN users u_creator ON u_creator.id = h_creator.user_id
+            LEFT JOIN history h_modifier ON h_modifier.page_id = p.id AND h_modifier.action = 'updated'
+            LEFT JOIN users u_modifier ON u_modifier.id = h_modifier.user_id
+            WHERE p.id = :page_id
+            ORDER BY h_modifier.action_date DESC
+            LIMIT 1
+        ");
+        $stmt->execute(['page_id' => $pageId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }    
 
 }

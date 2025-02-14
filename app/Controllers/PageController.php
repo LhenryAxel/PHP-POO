@@ -94,7 +94,11 @@ class PageController {
 
 	public function viewListPage() {
 		$pages = $this->listPages();
+		foreach ($pages as &$page) {
+			$page['history'] = $this->pageModel->getPageHistory($page['id']);
+		}
+	
 		require_once __DIR__ . '/../Views/home.php';
 		exit();
-	}
+	}	
 }
