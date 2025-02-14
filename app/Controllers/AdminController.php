@@ -1,16 +1,16 @@
 <?php
 namespace App\Controllers;
 
-use App\Models\User;
-use App\Models\Page;
+use App\Models\PageModel;
+use App\Models\UserModel;
 
 class AdminController {
-    private User $userModel;
-    private Page $pageModel;
+    private UserModel $userModel;
+    private PageModel $pageModel;
 
     public function __construct() {
-        $this->userModel = new User();
-        $this->pageModel = new Page();
+        $this->userModel = UserModel::GetInstance();
+        $this->pageModel = PageModel::GetInstance();
     }
 
     public function listUser() {
